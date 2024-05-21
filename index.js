@@ -11,6 +11,10 @@ const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const url = 'https://memomap-app.myshopify.com/admin/api/2024-01/products.json';
 
+app.get('/', async (req, res) => {
+  res.send('Hello World!');
+});
+
 app.get('/screenshot', async (req, res) => {
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
