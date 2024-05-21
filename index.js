@@ -71,7 +71,7 @@ app.get('/screenshot', async (req, res) => {
   const data = await resp.json();
   const products = data.products;
 
-  res.send(products);
+  res.send(base64);
 });
 
 app.listen(port, () => {
