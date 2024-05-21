@@ -16,7 +16,9 @@ app.get('/', async (req, res) => {
   const page = await browser.newPage();
 
   // Navigate the page to a URL
-  await page.goto('http://127.0.0.1:5500/');
+  await page.goto(
+    'http://127.0.0.1:5500/index.html?cities=%5B%7B%22id%22%3A0%2C%22type%22%3A%22text%22%2C%22title%22%3A%22Start%22%2C%22value%22%3A%22Lahore%2C+Punjab%2C+Pakistan%22%2C%22name%22%3A%22Lahore%22%2C%22coordinates%22%3A%5B74.35874729999999%2C31.5203696%5D%2C%22profile%22%3A%22driving%22%2C%22labelPosition%22%3A%22bottom%22%2C%22autoSuggestions%22%3A%5B%5D%7D%2C%7B%22id%22%3A1%2C%22type%22%3A%22text%22%2C%22title%22%3A%22Station%22%2C%22value%22%3A%22Faisalabad%2C+Punjab%2C+Pakistan%22%2C%22name%22%3A%22Faisalabad%22%2C%22coordinates%22%3A%5B73.13496049999999%2C31.45036619999999%5D%2C%22profile%22%3A%22driving%22%2C%22labelPosition%22%3A%22right%22%2C%22autoSuggestions%22%3A%5B%5D%7D%2C%7B%22id%22%3A3%2C%22type%22%3A%22text%22%2C%22title%22%3A%22Station+2%22%2C%22value%22%3A%22Peschawar%2C+Bezirk+Peshawar%2C+Khyber+Pakhtunkhwa%2C+Pakistan%22%2C%22coordinates%22%3A%5B71.5249154%2C34.0151366%5D%2C%22profile%22%3A%22driving%22%2C%22labelPosition%22%3A%22top%22%2C%22autoSuggestions%22%3A%5B%5D%2C%22name%22%3A%22Peschawar%22%7D%2C%7B%22id%22%3A2%2C%22type%22%3A%22text%22%2C%22title%22%3A%22Station+3%22%2C%22value%22%3A%22%22%2C%22coordinates%22%3Anull%2C%22profile%22%3A%22driving%22%2C%22labelPosition%22%3A%22top%22%7D%5D&alignment=Vertikle&layout=love&size=40x50&cardStyle=love&farblook=main_click_blue&mapStyle=mapbox%253A%252F%252Fstyles%252Fmemomap%252Fcln3lxvng035j01qu7qna6auo&mapColor=%252320ac37&mapTitle=testse&tripDetail_1=tset&tripDetail_2=great&rehmen=Rahmen_Holz'
+  );
 
   // Set screen size
   await page.setViewport({
@@ -29,7 +31,7 @@ app.get('/', async (req, res) => {
 
   await page.waitForSelector('.map-container');
 
-  await sleep(1000);
+  await sleep(2000);
 
   async function screenshotDOMElement(selector, padding = 0) {
     const rect = await page.evaluate((selector) => {
