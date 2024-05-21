@@ -16,11 +16,11 @@ app.get('/', async (req, res) => {
 });
 
 app.get('/screenshot', async (req, res) => {
+  const browser = await puppeteer.launch({
+    headless: true,
+    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+  });
   try {
-    const browser = await puppeteer.launch({
-      headless: true,
-      args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    });
     const page = await browser.newPage();
     // Navigate the page to a URL
     await page.goto(
@@ -54,6 +54,8 @@ app.get('/screenshot', async (req, res) => {
     }
     const base64 = await screenshotDOMElement('.map-container', 25);
     await browser.close();
+
+    res.send(base64);
   } catch (error) {
     res.send(error);
   }
