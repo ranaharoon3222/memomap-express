@@ -68,10 +68,7 @@ app.get('/screenshot', async (req, res) => {
       method: 'POST',
       body: JSON.stringify({
         product: {
-          title:
-            mapTitle !== null
-              ? mapTitle + '-' + uuidv4()
-              : 'Memo-Map-' + uuidv4(),
+          title: mapTitle !== null ? mapTitle : 'MEINE REISE',
           variants: [{ option1: 'map', price: 85.84, compare_at_price: 95.84 }],
           images: [
             {
