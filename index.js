@@ -19,11 +19,8 @@ app.get('/', async (req, res) => {
 
 app.get('/screenshot', async (req, res) => {
   const decode = decodeURIComponent(req.query.url);
-
   const link = new URL(decode);
-
   const mapTitle = link.searchParams.get('mapTitle');
-
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
@@ -65,11 +62,16 @@ app.get('/screenshot', async (req, res) => {
     }
     const base64 = await screenshotDOMElement('.map-container', 55);
 
+    await page.close();
+
     const resp = await fetch(url, {
       method: 'POST',
       body: JSON.stringify({
         product: {
-          title: mapTitle + '-' + uuidv4() || 'Memo-Map-' + uuidv4(),
+          title:
+            mapTitle !== null
+              ? mapTitle + '-' + uuidv4()
+              : 'Memo-Map-' + uuidv4(),
           variants: [{ option1: 'map', price: 85.84, compare_at_price: 95.84 }],
           images: [
             {
