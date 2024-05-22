@@ -11,7 +11,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
-const url = 'https://memomap-app.myshopify.com/admin/api/2024-01/products.json';
+const url = 'https://4b988e.myshopify.com/admin/api/2024-01/products.json';
 
 app.get('/', async (req, res) => {
   res.send('Hello World!');
