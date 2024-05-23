@@ -41,7 +41,7 @@ app.get('/screenshot', async (req, res) => {
   try {
     const page = await browser.newPage();
 
-    page.setDefaultTimeout(90000);
+    page.setDefaultTimeout(50000);
 
     // Navigate the page to a URL
     await page.goto(decode);
