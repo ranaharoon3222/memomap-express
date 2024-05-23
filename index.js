@@ -1,9 +1,13 @@
 import express from 'express';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-extra';
 import fetch from 'node-fetch';
 import 'dotenv/config';
-import { v4 as uuidv4 } from 'uuid';
 import cors from 'cors';
+import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+
+import { executablePath } from 'puppeteer';
+
+puppeteer.use(StealthPlugin());
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -24,13 +28,12 @@ app.get('/screenshot', async (req, res) => {
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
-    timeout: 60000,
+    executablePath: executablePath(),
   });
 
   try {
     const page = await browser.newPage();
 
-    page.setDefaultNavigationTimeout(90000);
     page.setDefaultTimeout(90000);
 
     // Navigate the page to a URL
@@ -49,6 +52,7 @@ app.get('/screenshot', async (req, res) => {
     await page.waitForNetworkIdle();
 
     await sleep(6000);
+
     async function screenshotDOMElement(selector, padding = 0) {
       const rect = await page.evaluate((selector) => {
         const element = document.querySelector(selector);
@@ -94,11 +98,14 @@ app.get('/screenshot', async (req, res) => {
     const data = await resp.json();
     const product = data.product;
 
+    await browser.close();
+
     res.send(product);
   } catch (error) {
-    res.send(error);
+    await browser?.close();
+    res.send(error, 'error');
   } finally {
-    await browser.close();
+    await browser?.close();
   }
 });
 
