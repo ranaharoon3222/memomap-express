@@ -24,10 +24,14 @@ app.get('/screenshot', async (req, res) => {
   const browser = await puppeteer.launch({
     headless: true,
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    timeout: 60000,
   });
 
   try {
     const page = await browser.newPage();
+
+    await page.setDefaultNavigationTimeout(60000);
+
     // Navigate the page to a URL
     await page.goto(decode);
     // Set screen size
