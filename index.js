@@ -40,6 +40,9 @@ app.get('/screenshot', async (req, res) => {
       height: 1080,
       deviceScaleFactor: 5.5,
     });
+
+    await page.reload();
+
     await page.waitForSelector('.map-container');
 
     await page.waitForNetworkIdle();
