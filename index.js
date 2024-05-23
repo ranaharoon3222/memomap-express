@@ -108,10 +108,10 @@ app.get('/screenshot', async (req, res) => {
 
     await browser.close();
 
-    res.send(product);
+    res.status(200).send(product);
   } catch (error) {
     await browser?.close();
-    res.send(error, 'error');
+    res.status(400).send(error, 'error');
   } finally {
     await browser?.close();
   }
