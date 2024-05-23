@@ -110,7 +110,9 @@ app.get('/screenshot', async (req, res) => {
     res.status(200).send(product);
   } catch (error) {
     await browser?.close();
-    res.status(400).send(error, 'error');
+    res.status(400).send({
+      error,
+    });
   } finally {
     await browser?.close();
   }
