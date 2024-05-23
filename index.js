@@ -1,25 +1,25 @@
 import express from 'express';
-import puppeteer from 'puppeteer-extra';
+import puppeteer from 'puppeteer';
 import fetch from 'node-fetch';
 import 'dotenv/config';
 import cors from 'cors';
-import StealthPlugin from 'puppeteer-extra-plugin-stealth';
+// import StealthPlugin from 'puppeteer-extra-plugin-stealth';
 
-import { executablePath } from 'puppeteer';
+// import { executablePath } from 'puppeteer';
 
-puppeteer.use(StealthPlugin());
+// puppeteer.use(StealthPlugin());
 
 const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
 
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+// app.use((req, res, next) => {
+//   res.setHeader('Access-Control-Allow-Origin', '*');
+//   res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT');
+//   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//   next();
+// });
 
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
