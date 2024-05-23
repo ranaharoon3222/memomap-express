@@ -13,6 +13,14 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 app.use(cors());
+
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PUT');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  next();
+});
+
 const sleep = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const url = 'https://4b988e.myshopify.com/admin/api/2024-01/products.json';
