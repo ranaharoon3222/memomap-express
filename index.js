@@ -55,13 +55,13 @@ app.get('/screenshot', async (req, res) => {
       deviceScaleFactor: 5.5,
     });
 
-    await page.reload();
-
     await page.waitForSelector('.map-container', {
       timeout: 0,
     });
 
     await page.waitForNetworkIdle();
+
+    await page.reload();
 
     async function screenshotDOMElement(selector, padding = 0) {
       const rect = await page.evaluate((selector) => {
