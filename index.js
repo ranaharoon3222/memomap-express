@@ -45,7 +45,7 @@ app.get('/screenshot', async (req, res) => {
 
     // Navigate the page to a URL
     await page.goto(decode, {
-      waitUntil: 'domcontentloaded',
+      waitUntil: 'load',
       timeout: 0,
     });
     // Set screen size
@@ -57,7 +57,9 @@ app.get('/screenshot', async (req, res) => {
 
     await page.reload();
 
-    await page.waitForSelector('.map-container');
+    await page.waitForSelector('.map-container', {
+      timeout: 0,
+    });
 
     await page.waitForNetworkIdle();
 
@@ -84,7 +86,7 @@ app.get('/screenshot', async (req, res) => {
     }
     const base64 = await screenshotDOMElement('.map-container', 55);
 
-    console.log(Boolean(base64));
+    console.log(base64.substring(1, 50));
 
     await page.close();
 
