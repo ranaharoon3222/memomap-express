@@ -35,7 +35,11 @@ app.get('/screenshot', async (req, res) => {
   const mapTitle = link.searchParams.get('mapTitle');
   const browser = await puppeteer.launch({
     headless: true,
-    args: ['--no-sandbox', '--disable-setuid-sandbox'],
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage',
+    ],
   });
 
   try {
