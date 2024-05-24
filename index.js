@@ -44,7 +44,10 @@ app.get('/screenshot', async (req, res) => {
     page.setDefaultTimeout(50000);
 
     // Navigate the page to a URL
-    await page.goto(decode);
+    await page.goto(decode, {
+      waitUntil: 'domcontentloaded',
+      timeout: 0,
+    });
     // Set screen size
     await page.setViewport({
       width: 1920,
@@ -81,6 +84,8 @@ app.get('/screenshot', async (req, res) => {
     }
     const base64 = await screenshotDOMElement('.map-container', 55);
 
+    console.log(Boolean(base64));
+
     await page.close();
 
     const resp = await fetch(url, {
@@ -105,16 +110,14 @@ app.get('/screenshot', async (req, res) => {
     const data = await resp.json();
     const product = data.product;
 
-    await browser.close();
-
     res.status(200).send(product);
   } catch (error) {
-    await browser?.close();
+    console.log(error);
     res.status(400).send({
       error,
     });
   } finally {
-    await browser?.close();
+    await browser.close();
   }
 });
 
