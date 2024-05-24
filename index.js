@@ -63,7 +63,7 @@ app.get('/screenshot', async (req, res) => {
 
     await page.waitForNetworkIdle();
 
-    await sleep(9000);
+    // await sleep(9000);
 
     async function screenshotDOMElement(selector, padding = 0) {
       const rect = await page.evaluate((selector) => {
