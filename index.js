@@ -63,8 +63,6 @@ app.get('/screenshot', async (req, res) => {
 
     await page.waitForNetworkIdle();
 
-    // await sleep(9000);
-
     async function screenshotDOMElement(selector, padding = 0) {
       const rect = await page.evaluate((selector) => {
         const element = document.querySelector(selector);
@@ -72,6 +70,9 @@ app.get('/screenshot', async (req, res) => {
         const { x, y, width, height } = element.getBoundingClientRect();
         return { left: x, top: y, width, height, id: element.id };
       }, selector);
+
+      await sleep(9000);
+
       return await page.screenshot({
         path: 'element.png',
         encoding: 'base64',
