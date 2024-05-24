@@ -43,7 +43,9 @@ app.get('/screenshot', async (req, res) => {
   });
 
   try {
+    console.log('Browser launched');
     const page = await browser.newPage();
+    console.log('New Page');
 
     page.setDefaultTimeout(50000);
 
@@ -52,6 +54,9 @@ app.get('/screenshot', async (req, res) => {
       waitUntil: 'load',
       timeout: 0,
     });
+
+    console.log('Go TO page', decode);
+
     // Set screen size
     await page.setViewport({
       width: 1920,
@@ -61,11 +66,12 @@ app.get('/screenshot', async (req, res) => {
 
     await page.reload();
 
+    console.log('page reload');
     await page.waitForSelector('.map-container', {
       timeout: 0,
     });
 
-    await page.waitForNetworkIdle();
+    console.log('waitForSelector');
 
     async function screenshotDOMElement(selector, padding = 0) {
       const rect = await page.evaluate((selector) => {
@@ -74,6 +80,7 @@ app.get('/screenshot', async (req, res) => {
         const { x, y, width, height } = element.getBoundingClientRect();
         return { left: x, top: y, width, height, id: element.id };
       }, selector);
+
       await sleep(9000);
 
       return await page.screenshot({
