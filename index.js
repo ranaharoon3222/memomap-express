@@ -65,7 +65,6 @@ app.get('/screenshot', async (req, res) => {
     });
 
     await page.reload();
-    await page.reload();
 
     console.log('page reload');
     await page.waitForSelector('.map-container', {
