@@ -64,7 +64,7 @@ app.get('/screenshot', async (req, res) => {
       deviceScaleFactor: 5.5,
     });
 
-    await page.reload();
+    // await page.reload();
 
     console.log('page reload');
     await page.waitForSelector('.map-container', {
