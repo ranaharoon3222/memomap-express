@@ -65,6 +65,7 @@ app.get('/screenshot', async (req, res) => {
     });
 
     await page.reload();
+    await page.reload();
 
     console.log('page reload');
     await page.waitForSelector('.map-container', {
@@ -81,7 +82,7 @@ app.get('/screenshot', async (req, res) => {
         return { left: x, top: y, width, height, id: element.id };
       }, selector);
 
-      await sleep(9000);
+      await sleep(10000);
 
       return await page.screenshot({
         path: 'element.png',
