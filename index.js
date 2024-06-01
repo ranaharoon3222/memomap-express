@@ -92,11 +92,11 @@ app.get('/screenshot', async (req, res) => {
           x: rect.left - padding,
           y: rect.top - padding,
           width: rect.width + padding * 2,
-          height: rect.height + padding * 2,
+          height: rect.height + padding + 25 * 2,
         },
       });
     }
-    const base64 = await screenshotDOMElement('.map-container', 55);
+    const base64 = await screenshotDOMElement('.map-container', 60);
 
     console.log(base64.substring(1, 50));
 
