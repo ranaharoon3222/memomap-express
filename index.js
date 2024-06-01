@@ -81,7 +81,7 @@ app.get('/screenshot', async (req, res) => {
         return { left: x, top: y, width, height, id: element.id };
       }, selector);
 
-      await sleep(14000);
+      await sleep(15000);
 
       return await page.screenshot({
         path: 'element.png',
