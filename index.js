@@ -96,7 +96,7 @@ app.get('/screenshot', async (req, res) => {
         },
       });
     }
-    const base64 = await screenshotDOMElement('.map-container', 65);
+    const base64 = await screenshotDOMElement('.map-container', 55);
 
     console.log(base64.substring(1, 50));
 
