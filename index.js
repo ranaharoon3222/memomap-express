@@ -92,7 +92,7 @@ app.get('/screenshot', async (req, res) => {
           x: rect.left - padding,
           y: rect.top - padding,
           width: rect.width + padding * 2,
-          height: rect.height + padding + 25 * 2,
+          height: rect.height + padding + 30 * 2,
         },
       });
     }
