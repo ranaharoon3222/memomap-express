@@ -74,7 +74,7 @@ app.get('/screenshot', async (req, res) => {
     console.log('waitForSelector');
 
     async function screenshotDOMElement(selector, padding = 0) {
-      await sleep(15000);
+      await sleep(20000);
       const rect = await page.evaluate((selector) => {
         const element = document.querySelector(selector);
         document.querySelector('.map_actions').style.display = 'none';
@@ -92,7 +92,7 @@ app.get('/screenshot', async (req, res) => {
           x: rect.left - padding,
           y: rect.top - padding,
           width: rect.width + padding * 2,
-          height: rect.height + padding + 30 * 2,
+          height: rect.height + padding + 35 * 2,
         },
       });
     }
