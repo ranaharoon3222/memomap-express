@@ -34,7 +34,7 @@ app.get('/screenshot', async (req, res) => {
   const link = new URL(decode);
   const mapTitle = link.searchParams.get('mapTitle');
   const browser = await puppeteer.launch({
-    headless: 'new',
+    headless: 'shell',
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -77,7 +77,7 @@ app.get('/screenshot', async (req, res) => {
     console.log('waitForSelector');
 
     async function screenshotDOMElement(selector, padding = 0) {
-      await sleep(15000);
+      await sleep(20000);
       const rect = await page.evaluate((selector) => {
         const element = document.querySelector(selector);
         document.querySelector('.map_actions').style.display = 'none';
@@ -105,29 +105,29 @@ app.get('/screenshot', async (req, res) => {
 
     await page.close();
 
-    const resp = await fetch(url, {
-      method: 'POST',
-      body: JSON.stringify({
-        product: {
-          title: mapTitle !== null ? mapTitle : 'MEINE REISE',
-          variants: [{ option1: 'map', price: 85.84, compare_at_price: 95.84 }],
-          images: [
-            {
-              attachment: base64,
-            },
-          ],
-        },
-      }),
-      headers: {
-        'X-Shopify-Access-Token': process.env.SHOPIFY_TOKEN,
-        'Content-Type': 'application/json',
-      },
-    });
+    // const resp = await fetch(url, {
+    //   method: 'POST',
+    //   body: JSON.stringify({
+    //     product: {
+    //       title: mapTitle !== null ? mapTitle : 'MEINE REISE',
+    //       variants: [{ option1: 'map', price: 85.84, compare_at_price: 95.84 }],
+    //       images: [
+    //         {
+    //           attachment: base64,
+    //         },
+    //       ],
+    //     },
+    //   }),
+    //   headers: {
+    //     'X-Shopify-Access-Token': process.env.SHOPIFY_TOKEN,
+    //     'Content-Type': 'application/json',
+    //   },
+    // });
 
-    const data = await resp.json();
-    const product = data.product;
+    // const data = await resp.json();
+    // const product = data.product;
 
-    res.status(200).send(product);
+    res.status(200).send(base64);
   } catch (error) {
     console.log(error);
     res.status(400).send({
