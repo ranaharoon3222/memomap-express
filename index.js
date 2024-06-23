@@ -34,7 +34,7 @@ app.get('/screenshot', async (req, res) => {
   const link = new URL(decode);
   const mapTitle = link.searchParams.get('mapTitle');
   const browser = await puppeteer.launch({
-    headless: 'shell',
+    headless: true,
     args: [
       '--no-sandbox',
       '--disable-setuid-sandbox',
@@ -77,7 +77,7 @@ app.get('/screenshot', async (req, res) => {
     console.log('waitForSelector');
 
     async function screenshotDOMElement(selector, padding = 0) {
-      await sleep(20000);
+      await sleep(10000);
       const rect = await page.evaluate((selector) => {
         const element = document.querySelector(selector);
         document.querySelector('.map_actions').style.display = 'none';
