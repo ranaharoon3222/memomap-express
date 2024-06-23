@@ -105,29 +105,29 @@ app.get('/screenshot', async (req, res) => {
 
     await page.close();
 
-    // const resp = await fetch(url, {
-    //   method: 'POST',
-    //   body: JSON.stringify({
-    //     product: {
-    //       title: mapTitle !== null ? mapTitle : 'MEINE REISE',
-    //       variants: [{ option1: 'map', price: 85.84, compare_at_price: 95.84 }],
-    //       images: [
-    //         {
-    //           attachment: base64,
-    //         },
-    //       ],
-    //     },
-    //   }),
-    //   headers: {
-    //     'X-Shopify-Access-Token': process.env.SHOPIFY_TOKEN,
-    //     'Content-Type': 'application/json',
-    //   },
-    // });
+    const resp = await fetch(url, {
+      method: 'POST',
+      body: JSON.stringify({
+        product: {
+          title: mapTitle !== null ? mapTitle : 'MEINE REISE',
+          variants: [{ option1: 'map', price: 85.84, compare_at_price: 95.84 }],
+          images: [
+            {
+              attachment: base64,
+            },
+          ],
+        },
+      }),
+      headers: {
+        'X-Shopify-Access-Token': process.env.SHOPIFY_TOKEN,
+        'Content-Type': 'application/json',
+      },
+    });
 
-    // const data = await resp.json();
-    // const product = data.product;
+    const data = await resp.json();
+    const product = data.product;
 
-    res.status(200).send(base64);
+    res.status(200).send(product);
   } catch (error) {
     console.log(error);
     res.status(400).send({
